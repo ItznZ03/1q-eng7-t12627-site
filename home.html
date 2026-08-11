@@ -17,8 +17,8 @@
         --text-muted: #8E9B97;
         --border-glass: rgba(45, 212, 191, 0.22);
         
-        /* Smooth Cubic-Bezier Curve */
-        --bezier-preset1: cubic-bezier(0.22, 1, 0.36, 1);
+        /* Ultra-Smooth Exponential Out Cubic-Bezier Curve */
+        --bezier-preset1: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     body {
@@ -87,12 +87,15 @@
         }
     }
 
-    /* Mini Header Startup Animation (Fast Top-to-Bottom Entry) */
+    /* GROUP ANIMATIONS: Top Bar, Title, and Core Theme (Simultaneous Trigger) */
+
+    /* 1. Top Bar (Unique animation: slideFromTop) */
     .header {
         border-bottom: 1px solid var(--border-glass);
         padding-bottom: 15px;
         margin-bottom: 25px;
-        animation: slideFromTop 0.4s var(--bezier-preset1) forwards;
+        opacity: 0;
+        animation: slideFromTop 0.8s var(--bezier-preset1) 0.1s forwards;
     }
 
     .school-tag {
@@ -122,13 +125,13 @@
         margin-bottom: 25px;
     }
 
-    /* Block reveal title animation */
     .block-reveal {
         position: relative;
         display: inline-block;
         margin: 15px 0 6px 0;
     }
 
+    /* 2. Main Title (Unique animation: blockRevealSweep + blockRevealText) */
     .main-title {
         font-size: 2.5rem;
         font-weight: 900;
@@ -137,7 +140,7 @@
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         opacity: 0;
-        animation: blockRevealText 0.01s ease-in-out 0.4s forwards;
+        animation: blockRevealText 0.01s ease-in-out 0.45s forwards;
     }
 
     .block-reveal::after {
@@ -149,7 +152,7 @@
         width: 0;
         background: linear-gradient(90deg, var(--accent-teal), var(--accent-emerald));
         border-radius: 4px;
-        animation: blockRevealSweep 0.5s var(--bezier-preset1) 0.15s forwards;
+        animation: blockRevealSweep 0.7s var(--bezier-preset1) 0.1s forwards;
     }
 
     .group-subtitle {
@@ -159,10 +162,10 @@
         font-style: italic;
         opacity: 0;
         letter-spacing: 0.5px;
-        animation: fadeInUp 0.6s var(--bezier-preset1) 0.75s forwards;
+        animation: fadeInUp 0.8s var(--bezier-preset1) 0.3s forwards;
     }
 
-    /* Theme Overview Card Startup Animation */
+    /* 3. Core Theme Card (Unique animation: fadeInUp) */
     .theme-card {
         background: rgba(6, 20, 18, 0.75);
         border: 1px solid var(--border-glass);
@@ -170,8 +173,8 @@
         padding: 22px 24px;
         margin-bottom: 35px;
         box-shadow: inset 0 0 15px rgba(16, 185, 129, 0.05);
-        animation: fadeInUp 0.7s var(--bezier-preset1) 0.85s forwards;
         opacity: 0;
+        animation: fadeInUp 0.9s var(--bezier-preset1) 0.1s forwards;
     }
 
     .theme-title {
@@ -199,29 +202,6 @@
         margin: 0;
     }
 
-    /* CSS classes for the color coding legend is retained, though not used. */
-    .legend-container {
-        display: flex;
-        gap: 16px;
-        flex-wrap: wrap;
-        font-size: 0.8rem;
-        font-weight: 600;
-        padding-top: 10px;
-        border-top: 1px dashed rgba(255, 255, 255, 0.08);
-    }
-
-    .legend-item {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-
-    .legend-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-    }
-
     /* Base Glass Card Stanza */
     .poem-card {
         background: var(--card-bg);
@@ -234,21 +214,21 @@
         display: flex;
         flex-direction: column;
         
-        /* Scroll Animations */
+        /* Smooth Scroll Transition */
         opacity: 0;
-        transition: opacity 1.1s var(--bezier-preset1),
-                    transform 1.1s var(--bezier-preset1),
-                    box-shadow 0.3s var(--bezier-preset1);
+        transition: opacity 1.2s var(--bezier-preset1),
+                    transform 1.2s var(--bezier-preset1),
+                    box-shadow 0.4s var(--bezier-preset1);
         will-change: transform, opacity;
     }
 
     /* Directional Starting Offsets */
     .slide-from-left {
-        transform: translateX(-70px);
+        transform: translateX(-100px);
     }
 
     .slide-from-right {
-        transform: translateX(70px);
+        transform: translateX(100px);
     }
 
     /* Revealed Active State */
@@ -269,7 +249,6 @@
     .card-purple  { border-right: 5px solid var(--accent-purple); }
     .card-cyan    { border-left: 5px solid var(--accent-cyan); }
 
-    /* Mini-header containing the Guide Questions */
     .guide-question-tag {
         font-size: 0.78rem;
         font-weight: 700;
@@ -308,7 +287,6 @@
     .hl-emerald{ color: #10B981; font-weight: 700; } 
     .hl-pink   { color: #F472B6; font-weight: 700; }
 
-    /* Stanza Member Tag */
     .stanza-member {
         margin-top: 22px;
         padding-top: 14px;
@@ -328,20 +306,23 @@
         text-align: center;
         font-size: 0.8rem;
         color: var(--text-muted);
-        animation: fadeInUp 0.7s var(--bezier-preset1) 1s forwards;
         opacity: 0;
+    }
+
+    .footer.visible {
+        animation: fadeInUp 0.8s var(--bezier-preset1) forwards;
     }
 </style>
 </head>
 <body>
 
 <div class="container">
+    <!-- TOP GROUP (Header, Title, Theme Card animate together with unique styles) -->
     <div class="header">
         <div class="school-tag">Ateneo de Davao University Junior High School</div>
         <span class="stage-badge">English 7 Unit 1 — Task 1</span>
     </div>
 
-    <!-- MAIN TITLE & GROUP SUBTITLE -->
     <div class="title-container">
         <div class="block-reveal">
             <h1 class="main-title">Forest to be Brought Back</h1>
@@ -349,7 +330,6 @@
         <p class="group-subtitle">A poem by Group 5 of 7 - Chabanel</p>
     </div>
 
-    <!-- THEME OVERVIEW CARD -->
     <div class="theme-card">
         <div class="theme-title">Core Theme</div>
         <p class="theme-quote">“We bring the forest back to life, and find our own lives healed.”</p>
@@ -358,7 +338,7 @@
         </p>
     </div>
 
-    <!-- STANZA 1: Left Border - Emerald -->
+    <!-- INDIVIDUAL STANZAS (Animate sequentially after top group) -->
     <div class="poem-card card-emerald slide-from-left">
         <div class="guide-question-tag">Stanza 1 • Identity of the Partner Community</div>
         <p class="poem-text">
@@ -372,7 +352,6 @@ United by <span class="hl-l-blue">teamwork</span> to guard it forevermore.
         </div>  
     </div>
 
-    <!-- STANZA 2: Right Border - Amber -->
     <div class="poem-card card-amber slide-from-right">
         <div class="guide-question-tag">Stanza 2 • Challenges / Issues</div>
         <p class="poem-text">
@@ -386,7 +365,6 @@ Yet <span class="hl-yellow">hope</span> still shines to guide their fight.
         </div>
     </div>
 
-    <!-- STANZA 3: Left Border - Teal -->
     <div class="poem-card card-teal slide-from-left">
         <div class="guide-question-tag">Stanza 3 • Lessons, Reflection, Values Learned</div>
         <p class="poem-text">
@@ -400,7 +378,6 @@ Enhancing the <span class="hl-l-blue">mentality</span> of humanity.
         </div>
     </div>
 
-    <!-- STANZA 4: Right Border - Purple -->
     <div class="poem-card card-purple slide-from-right">
         <div class="guide-question-tag">Stanza 4 • Reflection</div>
         <p class="poem-text">
@@ -414,7 +391,6 @@ Their <span class="hl-purple">resilience</span> made me realize strength grows f
         </div>
     </div>
 
-    <!-- STANZA 5: Left Border - Cyan -->
     <div class="poem-card card-cyan slide-from-left">
         <div class="guide-question-tag">Stanza 5 • Call to Action or Commitment</div>
         <p class="poem-text">
@@ -441,17 +417,30 @@ For in the end, nature’s power is real.
             threshold: 0.12
         };
 
-        const observer = new IntersectionObserver((entries, observerInstance) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observerInstance.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
+        // Delay stanza animations until the top group completes its entrance
+        setTimeout(() => {
+            let revealDelay = 0;
 
-        const cards = document.querySelectorAll('.poem-card');
-        cards.forEach(card => observer.observe(card));
+            const observer = new IntersectionObserver((entries, observerInstance) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, revealDelay * 200);
+
+                        revealDelay++;
+                        observerInstance.unobserve(entry.target);
+
+                        setTimeout(() => {
+                            revealDelay = 0;
+                        }, 400);
+                    }
+                });
+            }, observerOptions);
+
+            const animatedElements = document.querySelectorAll('.poem-card, .footer');
+            animatedElements.forEach(el => observer.observe(el));
+        }, 750); // 750ms delay to allow top group animations to complete
     });
 </script>
 
