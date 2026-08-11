@@ -7,7 +7,7 @@
 <style>
     :root {
         --bg-dark: #04120f;
-        --card-bg: rgba(11, 28, 24, 0.82);
+        --card-bg: rgba(11, 28, 24, 0.88);
         --accent-emerald: #10B981;
         --accent-teal: #2DD4BF;
         --accent-cyan: #38BDF8;
@@ -87,9 +87,7 @@
         }
     }
 
-    /* GROUP ANIMATIONS: Top Bar, Title, and Core Theme (Simultaneous Trigger) */
-
-    /* 1. Top Bar (Unique animation: slideFromTop) */
+    /* TOP GROUP ANIMATIONS */
     .header {
         border-bottom: 1px solid var(--border-glass);
         padding-bottom: 15px;
@@ -120,7 +118,6 @@
         letter-spacing: 1px;
     }
 
-    /* Title Block Container */
     .title-container {
         margin-bottom: 25px;
     }
@@ -131,7 +128,6 @@
         margin: 15px 0 6px 0;
     }
 
-    /* 2. Main Title (Unique animation: blockRevealSweep + blockRevealText) */
     .main-title {
         font-size: 2.5rem;
         font-weight: 900;
@@ -165,12 +161,11 @@
         animation: fadeInUp 0.8s var(--bezier-preset1) 0.3s forwards;
     }
 
-    /* 3. Core Theme Card (Unique animation: fadeInUp) */
     .theme-card {
         background: rgba(6, 20, 18, 0.75);
         border: 1px solid var(--border-glass);
-        border-radius: 14px;
-        padding: 22px 24px;
+        border-radius: 24px;
+        padding: 24px 28px;
         margin-bottom: 35px;
         box-shadow: inset 0 0 15px rgba(16, 185, 129, 0.05);
         opacity: 0;
@@ -202,19 +197,16 @@
         margin: 0;
     }
 
-    /* Base Glass Card Stanza */
+    /* Thick Gradient Border Tile (Matching Canva Frame Style) */
     .poem-card {
-        background: var(--card-bg);
-        border: 1px solid var(--border-glass);
-        border-radius: 16px;
-        padding: 32px;
-        margin-bottom: 28px;
-        backdrop-filter: blur(14px);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        position: relative;
+        border-radius: 36px;
+        padding: 10px;       /* Serves as thick gradient border padding */
+        margin-bottom: 32px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
         display: flex;
         flex-direction: column;
         
-        /* Smooth Scroll Transition */
         opacity: 0;
         transition: opacity 1.2s var(--bezier-preset1),
                     transform 1.2s var(--bezier-preset1),
@@ -222,7 +214,44 @@
         will-change: transform, opacity;
     }
 
-    /* Directional Starting Offsets */
+    /* Gradient Border Colors for Each Stanza Tile */
+    .card-emerald { background: linear-gradient(135deg, #10B981, #059669, #34D399); }
+    .card-amber   { background: linear-gradient(135deg, #F59E0B, #D97706, #FBBF24); }
+    .card-teal    { background: linear-gradient(135deg, #2DD4BF, #0D9488, #38BDF8); }
+    .card-purple  { background: linear-gradient(135deg, #A855F7, #7C3AED, #C084FC); }
+    .card-cyan    { background: linear-gradient(135deg, #38BDF8, #0284C7, #2DD4BF); }
+
+    /* Inner Tile Wrapper (Holds the Image & Dark Overlay) */
+    .card-inner {
+        position: relative;
+        border-radius: 26px;
+        padding: 28px 32px;
+        overflow: hidden;
+        background-size: cover;
+        background-position: center;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Dark Tint Overlay to Keep Text Ultra-Readable */
+    .card-inner::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(180deg, rgba(4, 18, 15, 0.68) 0%, rgba(6, 24, 20, 0.88) 100%);
+        z-index: 1;
+        transition: opacity 0.4s var(--bezier-preset1);
+    }
+
+    /* Ensure text renders on top of image and overlay */
+    .card-inner > * {
+        position: relative;
+        z-index: 2;
+    }
+
     .slide-from-left {
         transform: translateX(-100px);
     }
@@ -231,32 +260,37 @@
         transform: translateX(100px);
     }
 
-    /* Revealed Active State */
     .poem-card.visible {
         opacity: 1;
         transform: translateX(0);
     }
 
     .poem-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 22px 45px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        transform: translateY(-4px) scale(1.01);
+        box-shadow: 0 26px 50px rgba(0, 0, 0, 0.75);
     }
 
-    /* Card Accent Color Variations */
-    .card-emerald { border-left: 5px solid var(--accent-emerald); }
-    .card-amber   { border-right: 5px solid var(--accent-amber); }
-    .card-teal    { border-left: 5px solid var(--accent-teal); }
-    .card-purple  { border-right: 5px solid var(--accent-purple); }
-    .card-cyan    { border-left: 5px solid var(--accent-cyan); }
+    .poem-card:hover .card-inner::before {
+        background: linear-gradient(180deg, rgba(4, 18, 15, 0.58) 0%, rgba(6, 24, 20, 0.82) 100%);
+    }
+
+    /* Background Images */
+    .bg-mangrove-1 { 
+    background-image: url('images/stanza1bg.png'); 
+    }
+    .bg-mangrove-2 { background-image: url('https://images.unsplash.com/photo-1621451537084-482c73073a0f?auto=format&fit=crop&w=1000&q=80'); }
+    .bg-mangrove-3 { background-image: url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1000&q=80'); }
+    .bg-mangrove-4 { background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80'); }
+    .bg-mangrove-5 { background-image: url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=1000&q=80'); }
 
     .guide-question-tag {
         font-size: 0.78rem;
-        font-weight: 700;
+        font-weight: 800;
         text-transform: uppercase;
         letter-spacing: 1.2px;
         margin-bottom: 16px;
         padding-bottom: 10px;
-        border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+        border-bottom: 1px dashed rgba(255, 255, 255, 0.18);
         display: flex;
         align-items: center;
     }
@@ -264,15 +298,16 @@
     .card-emerald .guide-question-tag { color: var(--accent-emerald); justify-content: flex-start; }
     .card-amber .guide-question-tag   { color: var(--accent-amber); justify-content: flex-end; }
     .card-teal .guide-question-tag    { color: var(--accent-teal); justify-content: flex-start; }
-    .card-purple .guide-question-tag  { color: var(--accent-purple); justify-content: flex-end; }
+    .card-purple .guide-question-tag  { color: #D8B4FE; justify-content: flex-end; }
     .card-cyan .guide-question-tag    { color: var(--accent-cyan); justify-content: flex-start; }
 
     .poem-text {
-        font-size: 1.12rem;
+        font-size: 1.15rem;
         line-height: 1.85;
         color: var(--text-light);
         margin: 0;
         white-space: pre-line;
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
     }
 
     /* Eco Highlight Classes */
@@ -283,19 +318,20 @@
     .hl-amber  { color: #F59E0B; font-weight: 700; }
     .hl-coral  { color: #F87171; font-weight: 700; }
     .hl-yellow { color: #FBBF24; font-weight: 700; }
-    .hl-purple { color: #A855F7; font-weight: 700; } 
+    .hl-purple { color: #C084FC; font-weight: 700; } 
     .hl-emerald{ color: #10B981; font-weight: 700; } 
     .hl-pink   { color: #F472B6; font-weight: 700; }
 
     .stanza-member {
         margin-top: 22px;
         padding-top: 14px;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
         font-size: 0.8rem;
-        color: var(--text-muted);
+        color: #CBD5E1;
         text-transform: uppercase;
         letter-spacing: 1.5px;
-        font-weight: 600;
+        font-weight: 700;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
     }
 
     .align-right { text-align: right; }
@@ -317,7 +353,7 @@
 <body>
 
 <div class="container">
-    <!-- TOP GROUP (Header, Title, Theme Card animate together with unique styles) -->
+    <!-- TOP GROUP -->
     <div class="header">
         <div class="school-tag">Ateneo de Davao University Junior High School</div>
         <span class="stage-badge">English 7 Unit 1 — Task 1</span>
@@ -338,74 +374,88 @@
         </p>
     </div>
 
-    <!-- INDIVIDUAL STANZAS (Animate sequentially after top group) -->
+    <!-- STANZA 1 -->
     <div class="poem-card card-emerald slide-from-left">
-        <div class="guide-question-tag">Stanza 1 • Identity of the Partner Community</div>
-        <p class="poem-text">
+        <div class="card-inner bg-mangrove-1">
+            <div class="guide-question-tag">Stanza 1 • Identity of the Partner Community</div>
+            <p class="poem-text">
 <span class="hl-teal">Coastal fishermen</span> move through the heavy silt,
 Sheltering roots where young mangroves are built.
 Strong <span class="hl-l-green">coastal trees</span> form a shield by the shore,
 United by <span class="hl-l-blue">teamwork</span> to guard it forevermore.
-        </p>
-        <div class="stanza-member align-right">
-            Jose Charito III Cortez
-        </div>  
+            </p>
+            <div class="stanza-member align-right">
+                Jose Charito III Cortez
+            </div>  
+        </div>
     </div>
 
+    <!-- STANZA 2 -->
     <div class="poem-card card-amber slide-from-right">
-        <div class="guide-question-tag">Stanza 2 • Challenges / Issues</div>
-        <p class="poem-text">
+        <div class="card-inner bg-mangrove-2">
+            <div class="guide-question-tag">Stanza 2 • Challenges / Issues</div>
+            <p class="poem-text">
 <span class="hl-coral">Plastic</span> scattered along the shore,
 <span class="hl-amber">Threatening</span> what feeds them more and more,
 My heart grew at the sight,
 Yet <span class="hl-yellow">hope</span> still shines to guide their fight.
-        </p>
-        <div class="stanza-member align-left">
-            Raven Daniela Chu
+            </p>
+            <div class="stanza-member align-left">
+                Raven Daniela Chu
+            </div>
         </div>
     </div>
 
+    <!-- STANZA 3 -->
     <div class="poem-card card-teal slide-from-left">
-        <div class="guide-question-tag">Stanza 3 • Lessons, Reflection, Values Learned</div>
-        <p class="poem-text">
+        <div class="card-inner bg-mangrove-3">
+            <div class="guide-question-tag">Stanza 3 • Lessons, Reflection, Values Learned</div>
+            <p class="poem-text">
 As we help improve the <span class="hl-teal">biodiversity</span>,
 It makes our lives more easy.
 Planting trees help against the calamity,
 Enhancing the <span class="hl-l-blue">mentality</span> of humanity.
-        </p>
-        <div class="stanza-member align-right">
-            Lianne Mangao
+            </p>
+            <div class="stanza-member align-right">
+                Lianne Mangao
+            </div>
         </div>
     </div>
 
+    <!-- STANZA 4 -->
     <div class="poem-card card-purple slide-from-right">
-        <div class="guide-question-tag">Stanza 4 • Reflection</div>
-        <p class="poem-text">
+        <div class="card-inner bg-mangrove-4">
+            <div class="guide-question-tag">Stanza 4 • Reflection</div>
+            <p class="poem-text">
 In <span class="hl-teal">Matina Aplaya</span> they fall down but never give up,
 Planting mangroves so the challenges can't keep up.
 A friend once said, "One tree grows a forest, that's how we start."
 Their <span class="hl-purple">resilience</span> made me realize strength grows from our hearts.
-        </p>
-        <div class="stanza-member align-left">
-            Christorey Eshan Marco
+            </p>
+            <div class="stanza-member align-left">
+                Christorey Eshan Marco
+            </div>
         </div>
     </div>
 
+    <!-- STANZA 5 -->
     <div class="poem-card card-cyan slide-from-left">
-        <div class="guide-question-tag">Stanza 5 • Call to Action or Commitment</div>
-        <p class="poem-text">
+        <div class="card-inner bg-mangrove-5">
+            <div class="guide-question-tag">Stanza 5 • Call to Action or Commitment</div>
+            <p class="poem-text">
 In nature’s beauty horror lies.
 Yet <span class="hl-emerald">care</span> transforms the fear before our eyes.
 <span class="hl-coral">Harm</span> leaves us broken, but <span class="hl-l-blue">true help</span> will heal.
 For in the end, nature’s power is real.
-        </p>
-        <div class="stanza-member align-right">
-            Cristan Euan A. Castaneda
+            </p>
+            <div class="stanza-member align-right">
+                Cristan Euan A. Castaneda
+            </div>
         </div>
     </div>
 
     <div class="footer">
-        Environmental Poetry Web Project &bull; Beta Stage Preview
+        Environmental Poetry Web Project &bull; 7-Chabanel Group 5
     </div>
 </div>
 
@@ -417,7 +467,7 @@ For in the end, nature’s power is real.
             threshold: 0.12
         };
 
-        // Delay stanza animations until the top group completes its entrance
+        // Delay stanza entrance by 750ms after the header group
         setTimeout(() => {
             let revealDelay = 0;
 
@@ -440,7 +490,7 @@ For in the end, nature’s power is real.
 
             const animatedElements = document.querySelectorAll('.poem-card, .footer');
             animatedElements.forEach(el => observer.observe(el));
-        }, 750); // 750ms delay to allow top group animations to complete
+        }, 750); 
     });
 </script>
 
