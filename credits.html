@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English 7 - Project Credits & Repository Info</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+        @keyframes premiumPopup {
+            0% { opacity: 0; transform: scale(0.96) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .animate-popup {
+            animation: premiumPopup 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background: #04120f url('https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=2000&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Inter', sans-serif;
+            color: #F1F5F9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* 🌲 DEEP ECO-DARK OVERLAY */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(4, 18, 15, 0.78); 
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 0;
+        }
+
+        .gradient-wrapper {
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 60px; 
+            padding-bottom: 60px;
+            flex-grow: 1;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 800px; 
+            width: 100%;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* 🏷️ MAIN HEADER TITLE */
+        .page-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .school-tag {
+            font-size: 13px;
+            font-weight: 700;
+            color: #2DD4BF;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .main-title {
+            font-size: 48px;
+            font-weight: 900;
+            letter-spacing: 0.02em;
+            background: linear-gradient(135deg, #2DD4BF 0%, #10B981 50%, #38BDF8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(45, 212, 191, 0.2);
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: #8E9B97;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        /* 🃏 GLASS CARD COMPONENT */
+        .intro-card {
+            background: linear-gradient(135deg, rgba(11, 28, 24, 0.88) 0%, rgba(4, 18, 15, 0.80) 100%);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(45, 212, 191, 0.22);
+            border-radius: 24px;
+            padding: 45px;
+            margin-bottom: 30px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.1);
+            width: 100%;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+        }
+
+        .intro-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(45, 212, 191, 0.6);
+            box-shadow: 0 35px 70px rgba(45, 212, 191, 0.15), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+        }
+
+        .sector-badge {
+            display: inline-block;
+            background: linear-gradient(90deg, #2DD4BF, #10B981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 16px;
+        }
+
+        .intro-text h2 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 18px;
+            color: #FFFFFF;
+            letter-spacing: -0.02em;
+        }
+
+        /* 📢 DISCLAIMER BOX */
+        .disclaimer-box {
+            background: rgba(45, 212, 191, 0.06);
+            border-left: 4px solid #2DD4BF;
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #CBD5E1;
+        }
+
+        .disclaimer-box strong {
+            color: #FFFFFF;
+        }
+
+        /* 📊 TABULAR STYLING FOR CREDITS */
+        .qualities-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 15px;
+            border: 1px solid rgba(45, 212, 191, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .qualities-table th, 
+        .qualities-table td {
+            padding: 14px 18px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .qualities-table th {
+            background: rgba(45, 212, 191, 0.1);
+            color: #2DD4BF;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            border-bottom: 1px solid rgba(45, 212, 191, 0.2);
+        }
+
+        .qualities-table td {
+            background: rgba(255, 255, 255, 0.02);
+            color: #CBD5E1;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            line-height: 1.5;
+            transition: background 0.2s ease;
+        }
+
+        .qualities-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .qualities-table tr:hover td {
+            background: rgba(45, 212, 191, 0.08);
+            color: #FFFFFF;
+        }
+
+        .quality-name {
+            color: #2DD4BF;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        code {
+            background: rgba(45, 212, 191, 0.15);
+            color: #34D399;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12.5px;
+        }
+
+        /* 🐙 GITHUB BOX STYLING */
+        .github-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(45, 212, 191, 0.22);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .github-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, rgba(45, 212, 191, 0.25) 0%, rgba(16, 185, 129, 0.35) 100%);
+            border: 1px solid rgba(45, 212, 191, 0.5);
+            color: #FFFFFF;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .github-btn:hover {
+            background: linear-gradient(135deg, rgba(45, 212, 191, 0.45) 0%, rgba(16, 185, 129, 0.55) 100%);
+            border-color: rgba(45, 212, 191, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(45, 212, 191, 0.25);
+        }
+
+        .site-footer {
+            width: 100%;
+            border-top: 1px solid rgba(45, 212, 191, 0.2);
+            padding-top: 24px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .site-footer p {
+            font-size: 13px;
+            color: #8E9B97;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+            font-weight: 500;
+        }
+
+        .site-footer a {
+            color: #2DD4BF;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .site-footer a:hover {
+            color: #34D399;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .main-title { font-size: 36px; }
+            .subtitle { font-size: 13px; }
+            .intro-card { padding: 30px 20px; }
+            .intro-text h2 { font-size: 22px; }
+            .qualities-table th, .qualities-table td { padding: 10px 12px; font-size: 13px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gradient-wrapper">
+        <div class="container animate-popup">
+            
+            <!-- Big Header Title -->
+            <header class="page-header">
+                <div class="school-tag">Ateneo de Davao University Junior High School</div>
+                <h1 class="main-title">English 7 Unit 1</h1>
+                <p class="subtitle">Asset Attribution & Project Repository</p>
+            </header>
+
+            <!-- TILE 1: Developer Profile (ItznZ03) -->
+            <div class="intro-card">
+                <div class="sector-badge">Project Web Developer & Maintainer</div>
+                <div class="intro-text">
+                    <h2>ItznZ03</h2>
+                    <p style="font-size: 14.5px; color: #CBD5E1; line-height: 1.6; margin: 0;">
+                        <strong>ItznZ03</strong> is the primary developer responsible for designing, structuring, and maintaining this web presentation for <strong>7-Chabanel Group 5</strong>. All responsive web components, scroll-driven entrance animations, color palettes, and glassmorphism layouts were implemented directly by them.
+                    </p>
+                </div>
+            </div>
+
+            <!-- TILE 2: GitHub Repository -->
+            <div class="intro-card">
+                <div class="sector-badge">Open Source Code</div>
+                <div class="intro-text">
+                    <h2>Project Repository</h2>
+                    <p style="font-size: 14.5px; color: #CBD5E1; line-height: 1.6; margin-bottom: 20px;">
+                        The full repository containing all HTML/CSS code, background imagery, and custom stylesheets for this web showcase is hosted on GitHub.
+                    </p>
+
+                    <div class="github-box">
+                        <a href="https://github.com/ItznZ03/1q-eng7-t12627-site" target="_blank" class="github-btn">
+                            <svg height="20" width="20" viewBox="0 0 16 16" fill="currentColor">
+                                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                            </svg>
+                            View Repository (ItznZ03/1q-eng7-t12627-site)
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TILE 3: Media Credits & Asset Attribution -->
+            <div class="intro-card">
+                <div class="sector-badge">Media Attribution & Legal Credits</div>
+                <div class="intro-text">
+                    <h2>Asset Credits & Image Sources</h2>
+                    
+                    <div class="disclaimer-box">
+                        <strong>Disclaimer:</strong> Media items used across this web page (including background imagery for individual stanzas) are credited to their respective creators below. High-resolution photography was sourced under free-use photography licenses from Unsplash and direct repository storage.
+                    </div>
+
+                    <table class="qualities-table">
+                        <thead>
+                            <tr>
+                                <th>Section / Asset</th>
+                                <th>File / Reference</th>
+                                <th>Source / Provider</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="quality-name">Stanza 1 Background</td>
+                                <td><code>images/stanza1bg.png</code></td>
+                                <td>Direct GitHub Repository Asset</td>
+                            </tr>
+                            <tr>
+                                <td class="quality-name">Stanza 2 Background</td>
+                                <td><code>photo-1621451537084...</code></td>
+                                <td>Unsplash Photography</td>
+                            </tr>
+                            <tr>
+                                <td class="quality-name">Stanza 3 Background</td>
+                                <td><code>photo-1448375240586...</code></td>
+                                <td>Unsplash Photography</td>
+                            </tr>
+                            <tr>
+                                <td class="quality-name">Stanza 4 Background</td>
+                                <td><code>photo-1507525428034...</code></td>
+                                <td>Unsplash Photography</td>
+                            </tr>
+                            <tr>
+                                <td class="quality-name">Stanza 5 Background</td>
+                                <td><code>photo-1518531933037...</code></td>
+                                <td>Unsplash Photography</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <footer class="site-footer">
+                <p>&copy; 7-Chabanel Group 5 • Engineered by <strong>ItznZ03</strong>. All rights reserved.</p>
+                <p style="margin-top: 6px; font-size: 12px; opacity: 0.85;">
+                    Hosted via <a href="https://github.com/ItznZ03/1q-eng7-t12627-site" target="_blank">GitHub Pages</a> for Ateneo de Davao University JHS English 7.
+                </p>
+            </footer>
+
+        </div>
+    </div>
+
+</body>
+</html>
