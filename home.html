@@ -16,6 +16,9 @@
         --text-light: #F1F5F9;
         --text-muted: #8E9B97;
         --border-glass: rgba(45, 212, 191, 0.22);
+        
+        /* Smooth Cubic-Bezier Curve */
+        --bezier-preset1: cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     body {
@@ -31,6 +34,7 @@
         display: flex;
         justify-content: center;
         min-height: 100vh;
+        overflow-x: hidden;
     }
 
     .container {
@@ -38,11 +42,57 @@
         width: 100%;
     }
 
-    /* Header & Branding */
+    /* Keyframe Animations */
+    @keyframes slideFromTop {
+        from {
+            opacity: 0;
+            transform: translateY(-25px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes blockRevealText {
+        0% { opacity: 0; }
+        50% { opacity: 0; }
+        51% { opacity: 1; }
+        100% { opacity: 1; }
+    }
+
+    @keyframes blockRevealSweep {
+        0% {
+            left: 0;
+            width: 0%;
+        }
+        50% {
+            left: 0;
+            width: 100%;
+        }
+        100% {
+            left: 100%;
+            width: 0%;
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(24px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Mini Header Startup Animation (Fast Top-to-Bottom Entry) */
     .header {
         border-bottom: 1px solid var(--border-glass);
         padding-bottom: 15px;
         margin-bottom: 25px;
+        animation: slideFromTop 0.4s var(--bezier-preset1) forwards;
     }
 
     .school-tag {
@@ -67,18 +117,39 @@
         letter-spacing: 1px;
     }
 
-    /* Title Block & Group Subtitle */
+    /* Title Block Container */
     .title-container {
         margin-bottom: 25px;
+    }
+
+    /* Block reveal title animation */
+    .block-reveal {
+        position: relative;
+        display: inline-block;
+        margin: 15px 0 6px 0;
     }
 
     .main-title {
         font-size: 2.5rem;
         font-weight: 900;
-        margin: 15px 0 6px 0;
+        margin: 0;
         background: linear-gradient(135deg, var(--accent-teal) 0%, var(--accent-emerald) 50%, var(--accent-cyan) 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        opacity: 0;
+        animation: blockRevealText 0.01s ease-in-out 0.4s forwards;
+    }
+
+    .block-reveal::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 0;
+        background: linear-gradient(90deg, var(--accent-teal), var(--accent-emerald));
+        border-radius: 4px;
+        animation: blockRevealSweep 0.5s var(--bezier-preset1) 0.15s forwards;
     }
 
     .group-subtitle {
@@ -86,11 +157,12 @@
         color: var(--accent-teal);
         margin: 0;
         font-style: italic;
-        opacity: 0.9;
+        opacity: 0;
         letter-spacing: 0.5px;
+        animation: fadeInUp 0.6s var(--bezier-preset1) 0.75s forwards;
     }
 
-    /* Theme Overview Card */
+    /* Theme Overview Card Startup Animation */
     .theme-card {
         background: rgba(6, 20, 18, 0.75);
         border: 1px solid var(--border-glass);
@@ -98,6 +170,8 @@
         padding: 22px 24px;
         margin-bottom: 35px;
         box-shadow: inset 0 0 15px rgba(16, 185, 129, 0.05);
+        animation: fadeInUp 0.7s var(--bezier-preset1) 0.85s forwards;
+        opacity: 0;
     }
 
     .theme-title {
@@ -125,7 +199,7 @@
         margin: 0;
     }
 
-    /* Legend CSS Classes Retained as Requested */
+    /* CSS classes for the color coding legend is retained, though not used. */
     .legend-container {
         display: flex;
         gap: 16px;
@@ -159,12 +233,33 @@
         box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
         display: flex;
         flex-direction: column;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        
+        /* Scroll Animations */
+        opacity: 0;
+        transition: opacity 1.1s var(--bezier-preset1),
+                    transform 1.1s var(--bezier-preset1),
+                    box-shadow 0.3s var(--bezier-preset1);
+        will-change: transform, opacity;
+    }
+
+    /* Directional Starting Offsets */
+    .slide-from-left {
+        transform: translateX(-70px);
+    }
+
+    .slide-from-right {
+        transform: translateX(70px);
+    }
+
+    /* Revealed Active State */
+    .poem-card.visible {
+        opacity: 1;
+        transform: translateX(0);
     }
 
     .poem-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        transform: translateY(-3px);
+        box-shadow: 0 22px 45px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
     /* Card Accent Color Variations */
@@ -174,7 +269,7 @@
     .card-purple  { border-right: 5px solid var(--accent-purple); }
     .card-cyan    { border-left: 5px solid var(--accent-cyan); }
 
-    /* Guide Question / Short Title Header */
+    /* Mini-header containing the Guide Questions */
     .guide-question-tag {
         font-size: 0.78rem;
         font-weight: 700;
@@ -201,13 +296,6 @@
         white-space: pre-line;
     }
 
-    /* Placeholder text styling */
-    .placeholder-text {
-        font-style: italic;
-        color: var(--text-muted);
-        opacity: 0.8;
-    }
-
     /* Eco Highlight Classes */
     .hl-teal { color: #2DD4BF; font-weight: 700; }
     .hl-l-green { color: #34D399; font-weight: 700; }
@@ -222,7 +310,7 @@
 
     /* Stanza Member Tag */
     .stanza-member {
-        margin-top: 22px;2
+        margin-top: 22px;
         padding-top: 14px;
         border-top: 1px solid rgba(255, 255, 255, 0.08);
         font-size: 0.8rem;
@@ -240,6 +328,8 @@
         text-align: center;
         font-size: 0.8rem;
         color: var(--text-muted);
+        animation: fadeInUp 0.7s var(--bezier-preset1) 1s forwards;
+        opacity: 0;
     }
 </style>
 </head>
@@ -253,7 +343,9 @@
 
     <!-- MAIN TITLE & GROUP SUBTITLE -->
     <div class="title-container">
-        <h1 class="main-title">Forest to be Brought Back</h1>
+        <div class="block-reveal">
+            <h1 class="main-title">Forest to be Brought Back</h1>
+        </div>
         <p class="group-subtitle">A poem by Group 5 of 7 - Chabanel</p>
     </div>
 
@@ -267,7 +359,7 @@
     </div>
 
     <!-- STANZA 1: Left Border - Emerald -->
-    <div class="poem-card card-emerald">
+    <div class="poem-card card-emerald slide-from-left">
         <div class="guide-question-tag">Stanza 1 • Identity of the Partner Community</div>
         <p class="poem-text">
 <span class="hl-teal">Coastal fishermen</span> move through the heavy silt,
@@ -281,14 +373,13 @@ United by <span class="hl-l-blue">teamwork</span> to guard it forevermore.
     </div>
 
     <!-- STANZA 2: Right Border - Amber -->
-    <div class="poem-card card-amber">
+    <div class="poem-card card-amber slide-from-right">
         <div class="guide-question-tag">Stanza 2 • Challenges / Issues</div>
         <p class="poem-text">
 <span class="hl-coral">Plastic</span> scattered along the shore,
 <span class="hl-amber">Threatening</span> what feeds them more and more,
 My heart grew at the sight,
 Yet <span class="hl-yellow">hope</span> still shines to guide their fight.
-
         </p>
         <div class="stanza-member align-left">
             Raven Daniela Chu
@@ -296,7 +387,7 @@ Yet <span class="hl-yellow">hope</span> still shines to guide their fight.
     </div>
 
     <!-- STANZA 3: Left Border - Teal -->
-    <div class="poem-card card-teal">
+    <div class="poem-card card-teal slide-from-left">
         <div class="guide-question-tag">Stanza 3 • Lessons, Reflection, Values Learned</div>
         <p class="poem-text">
 As we help improve the <span class="hl-teal">biodiversity</span>,
@@ -310,7 +401,7 @@ Enhancing the <span class="hl-l-blue">mentality</span> of humanity.
     </div>
 
     <!-- STANZA 4: Right Border - Purple -->
-    <div class="poem-card card-purple">
+    <div class="poem-card card-purple slide-from-right">
         <div class="guide-question-tag">Stanza 4 • Reflection</div>
         <p class="poem-text">
 In <span class="hl-teal">Matina Aplaya</span> they fall down but never give up,
@@ -324,7 +415,7 @@ Their <span class="hl-purple">resilience</span> made me realize strength grows f
     </div>
 
     <!-- STANZA 5: Left Border - Cyan -->
-    <div class="poem-card card-cyan">
+    <div class="poem-card card-cyan slide-from-left">
         <div class="guide-question-tag">Stanza 5 • Call to Action or Commitment</div>
         <p class="poem-text">
 In nature’s beauty horror lies.
@@ -341,6 +432,28 @@ For in the end, nature’s power is real.
         Environmental Poetry Web Project &bull; Beta Stage Preview
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -60px 0px',
+            threshold: 0.12
+        };
+
+        const observer = new IntersectionObserver((entries, observerInstance) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observerInstance.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        const cards = document.querySelectorAll('.poem-card');
+        cards.forEach(card => observer.observe(card));
+    });
+</script>
 
 </body>
 </html>
